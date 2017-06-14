@@ -27,6 +27,9 @@
 		}
 		public function ClubFair()
 		{
+		   	//now the ClubFair class is the stage and display (now we can access certain instance names in other classes)
+			ClubFair._display = this;
+			ClubFair._stage = stage;
 		   
 		   //load the mobile app. the moment we open it
 		   new LoadGame();
