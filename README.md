@@ -4,7 +4,8 @@ ClubFair is a mobile application created by
 - Hrishikesh Raj
 - Rohith Raj
 - Mustafa Amir
-to help students organize their club activities at Uplift North Hills Preperatory.
+
+It's purpose is to help students organize their club activities at Uplift North Hills Preperatory.
 
 # Technologies
 - Actionscript: Client and Front-end language
