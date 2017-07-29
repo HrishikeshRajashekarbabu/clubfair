@@ -9,7 +9,7 @@
 		{
 			//check if the person ever registered a first name. if they never registered a first name, then they're a new user.
 			if(ClubFair.ClubFairData.data.firstName == undefined) {
-				trace("This is a new user - make the person go to the second page.");
+				trace("[ClubFair] This is a new user - make the person go to the second page.");
 				ClubFair.display.gotoAndStop(2);
 				new NewUserLogic();
 			} else {
@@ -18,6 +18,7 @@
 				ClubFair.lastName = ClubFair.ClubFairData.data.lastName;
 				ClubFair.display.gotoAndStop(3);
 				new HomePageLogic();
+				trace("[ClubFair] Logging in as " + ClubFair.firstName + " " + ClubFair.lastName + "!");
 			}
 		}
 	}

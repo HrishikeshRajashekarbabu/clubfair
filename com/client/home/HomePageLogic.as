@@ -1,7 +1,9 @@
 ﻿package com.client.home
 {
 	import flash.events.MouseEvent;
-
+	import com.client.club.ClubLogin;
+	import com.client.club.ClubRegistration;
+	
 	public class HomePageLogic
 	{
 		public function HomePageLogic()
@@ -16,9 +18,11 @@
 		}
 		public function gotoAdminLoginClub(E:MouseEvent): void {
 			ClubFair.display.gotoAndStop(4);
+			new ClubLogin();
 		}
 		public function registerClub(E:MouseEvent): void {
 			ClubFair.display.gotoAndStop(5);
+			new ClubRegistration();
 		}
 		public function seeClubs(E:MouseEvent): void {
 			

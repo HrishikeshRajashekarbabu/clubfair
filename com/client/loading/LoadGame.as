@@ -19,7 +19,7 @@
 			
 			//once the game has loaded the bytes
 			if (total == loaded) {
-				trace("Loaded the mobile application!");
+				trace("[ClubFair] Loaded the mobile application!");
 				ClubFair.display.removeEventListener(Event.ENTER_FRAME, LoadGamePage);
 				
 				//now load all the SharedObject data from the user
