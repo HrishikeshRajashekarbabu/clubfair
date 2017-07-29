@@ -62,8 +62,19 @@
 			}
 		}
 		function loadResults(E:Event) {
-			var resultMessage = "" + E.target.data.result_message;
+			var resultMessage:String = String(E.target.data.result_message);
 			trace("[ClubFair] " + resultMessage);
+			
+			//if the result message says "successfully logged in", then login the user!
+			if(resultMessage.indexOf("Successfully logged in") == 0) {
+				ClubFair.display.removeEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
+				ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
+				ClubFair.display.loginBTN.removeEventListener(MouseEvent.CLICK, loginClub);
+				ClubPageLogic.clubName = ClubFair.display.clubNameTxT.text; //set the clubname in the logic class
+				ClubPageLogic.clubPassword = ClubFair.display.clubPasswordTxT.text; //set the clubpassword in the logic class
+				ClubFair.display.gotoAndStop(6);
+				new ClubPageLogic();
+			}
 		}
    }
 }
