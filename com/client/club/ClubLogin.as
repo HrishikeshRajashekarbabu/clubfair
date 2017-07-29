@@ -6,6 +6,7 @@
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
+	import com.client.saving.SaveData;
 	
 	public class ClubLogin
 	{
@@ -16,8 +17,22 @@
 				//make sure the text boxes are blank when first loading the page
 				ClubFair.display.clubNameTxT.text = "";
 				ClubFair.display.clubPasswordTxT.text = "";
-			
+				
+				//if the user decided to "remember login details"
+				if(ClubFair.rememberDetails && (ClubFair.clubName != null && ClubFair.clubName != "") && (ClubFair.clubPassword != null && ClubFair.clubName != "")) {
+					trace("[ClubFair] Loading saved club name and password.");
+					ClubFair.display.rememberLoginBTN.gotoAndStop(2);
+					ClubFair.display.clubNameTxT.text = ClubFair.clubName;
+					ClubFair.display.clubPasswordTxT.text = ClubFair.clubPassword;
+				} else {
+					ClubFair.display.rememberLoginBTN.gotoAndStop(1);
+					trace("[ClubFair] User did not remember the club name and password.");
+					ClubFair.display.clubNameTxT.text = "";
+					ClubFair.display.clubPasswordTxT.text = "";
+				}
+				
 				ClubFair.display.addEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
+				ClubFair.display.rememberLoginBTN.addEventListener(MouseEvent.CLICK, rememberDetails);
 				ClubFair.display.backBTN.addEventListener(MouseEvent.CLICK, backBTNHome);
 				ClubFair.display.loginBTN.addEventListener(MouseEvent.CLICK, loginClub);
 			}
@@ -35,10 +50,29 @@
 					ClubFair.display.clubPasswordPlaceHolder.visible = true;
 				}
 		}
+		function rememberDetails(E:MouseEvent): void {
+			if(ClubFair.display.rememberLoginBTN.currentFrame == 1) {
+				//enable the remember login details
+				ClubFair.display.rememberLoginBTN.gotoAndStop(2);
+				ClubFair.rememberDetails = true;
+				ClubFair.clubName = ClubFair.display.clubNameTxT.text;
+				ClubFair.clubPassword = ClubFair.display.clubPasswordTxT.text;
+				new SaveData();
+			} else if(ClubFair.display.rememberLoginBTN.currentFrame == 2) {
+				//disable the remember login details
+				ClubFair.display.rememberLoginBTN.gotoAndStop(1);
+				ClubFair.rememberDetails = false;
+				ClubFair.clubName = "";
+				ClubFair.clubPassword = "";
+				new SaveData()
+			}
+		}
 		function backBTNHome(E:MouseEvent): void {
 			//go back to the home page and load the homepage code
 			ClubFair.display.removeEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
+			ClubFair.display.rememberLoginBTN.removeEventListener(MouseEvent.CLICK, rememberDetails);
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
+			ClubFair.display.loginBTN.removeEventListener(MouseEvent.CLICK, loginClub);
 			ClubFair.display.gotoAndStop(3);
 			new HomePageLogic();
 		}
@@ -71,6 +105,15 @@
 			
 			//if the result message says "successfully logged in", then login the user!
 			if(resultMessage.indexOf("Successfully logged in") == 0) {
+				
+				//if we chose to remember the details, then let's remember the login details for next time!
+				if(ClubFair.rememberDetails) {
+					trace("[ClubFair] Saving details for next login session.");
+					ClubFair.clubName = ClubFair.display.clubNameTxT.text;
+					ClubFair.clubPassword = ClubFair.display.clubPasswordTxT.text;
+					new SaveData();
+				}
+				
 				ClubFair.display.removeEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
 				ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
 				ClubFair.display.loginBTN.removeEventListener(MouseEvent.CLICK, loginClub);

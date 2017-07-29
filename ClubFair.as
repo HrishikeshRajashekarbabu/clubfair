@@ -10,8 +10,12 @@
 		private static var _display:MovieClip;
 		private static var _stage:Stage;
 		
+		//locally saved variables using SharedObject
 		public static var firstName:String = "";
 		public static var lastName:String = "";
+		public static var rememberDetails:Boolean = false;
+		public static var clubName:String = "";
+		public static var clubPassword:String = "";
 		public static var ClubFairData:SharedObject = SharedObject.getLocal("ClubFair");
 
 		/* use getters instead of public static vars so they
