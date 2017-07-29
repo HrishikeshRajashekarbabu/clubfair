@@ -20,9 +20,9 @@ $link = mysqli_connect($host, $sqluser, $sqlpassword, $dbusername);
 
 	//this query inserts the values into the admin_login table
 	$query = "INSERT INTO admin_login (club_name, club_bio, club_password) VALUES('$club_name', '$club_bio', '$club_password')";
-	mysqli_query($link, $query) or exit("result_message=Failed to send to the database!");
+	mysqli_query($link, $query) or exit("result_message=Error sending the information!");
     
     //if all else is successful, then tell the user
-    exit("result_message=The information has been successfully sent to the database!");
+    exit("result_message=Successfully registered $club_name" . "!");
 
 ?>

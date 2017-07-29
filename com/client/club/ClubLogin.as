@@ -58,12 +58,16 @@
 				urlLoader.load(urlRequest);
 				urlLoader.addEventListener(Event.COMPLETE, loadResults); //load the result from the php file
 			} else {
-				trace("[ClubFair] Please fill out all fields!");
+				trace("[ClubFair] Failed to fill out all fields!");
+				ClubFair.display.Warning.warningField.textInfo.text = "Please fill out all fields!";
+				ClubFair.display.Warning.gotoAndPlay(2);
 			}
 		}
 		function loadResults(E:Event) {
 			var resultMessage:String = String(E.target.data.result_message);
 			trace("[ClubFair] " + resultMessage);
+			ClubFair.display.Warning.warningField.textInfo.text = resultMessage;
+			ClubFair.display.Warning.gotoAndPlay(2);
 			
 			//if the result message says "successfully logged in", then login the user!
 			if(resultMessage.indexOf("Successfully logged in") == 0) {

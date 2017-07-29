@@ -31,13 +31,13 @@
 				//check if the first name or last name texts were blank
 				if(ClubFair.display.firstNameTxT.text == "")
 				{
-					trace("Failed to input first name!");
+					trace("[ClubFair] Failed to input first name!");
 					ClubFair.display.Warning.warningField.textInfo.text = "Please input your first name.";
 					ClubFair.display.Warning.gotoAndPlay(2);
 					trace(ClubFair.display.Warning.warningField.textInfo.text);
 				} else if(ClubFair.display.lastNameTxT.text == "")
 				{
-					trace("Failed to input last name!");
+					trace("[ClubFair] Failed to input last name!");
 					ClubFair.display.Warning.warningField.textInfo.text = "Please input your last name.";
 					ClubFair.display.Warning.gotoAndPlay(2);
 				} else

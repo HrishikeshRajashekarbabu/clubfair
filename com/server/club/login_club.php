@@ -14,9 +14,9 @@ $link = mysqli_connect($host, $sqluser, $sqlpassword, $dbusername);
     $query = "SELECT * FROM admin_login WHERE club_name='$club_name' AND club_password='$club_password'";
 	$result = mysqli_query($link, $query);
 	while(mysqli_num_rows($result) > 0) {
-        exit("result_message=Successfully logged in to $club_name !");
+        exit("result_message=Successfully logged in to $club_name" . "!");
     }
 	
 	//if all else fails, then tell the user
-    exit("result_message=Sorry, the information you inserted was incorrect!");
+    exit("result_message=Invalid club name or password!");
 ?>
