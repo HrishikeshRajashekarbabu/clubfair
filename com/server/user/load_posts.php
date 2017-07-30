@@ -1,4 +1,5 @@
 <?php
+include("dbconnection.php");
 
     $the_user_id=$_POST['user_id'];
 

@@ -1,11 +1,5 @@
 <?php
-
-//if(isset($_POST['p_id']))
-    //{
-    //    
-    //    $the_post_id = $_POST['p_id'];
-    //    
-    //}
+include("dbconnection.php");
 
     $connection= mysqli_connect('clubfair.000webhostapp.com', 'root', '', 'id2004787_clubfair');
 

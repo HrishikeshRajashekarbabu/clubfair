@@ -1,15 +1,10 @@
 <?php
-$host = "";
-$sqluser = "";
-$sqlpassword = "";
-$dbusername = "";
+include("dbconnection.php");
 
 //variables to receive from flash
 $club_name = $_POST["club_name"];
 $club_password = $_POST["club_password"];
 $club_bio = $_POST["club_bio"];
-
-$link = mysqli_connect($host, $sqluser, $sqlpassword, $dbusername);
 
     //check if the club name has already been used. if it is, then don't allow them to use it!
 	$query = "SELECT * FROM admin_login WHERE club_name='$club_name'";

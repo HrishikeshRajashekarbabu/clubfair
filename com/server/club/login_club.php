@@ -1,14 +1,9 @@
 <?php
-$host = "";
-$sqluser = "";
-$sqlpassword = "";
-$dbusername = "";
+include("dbconnection.php");
 
 //variables to receive from flash
 $club_name = $_POST["club_name"];
 $club_password = $_POST["club_password"];
-
-$link = mysqli_connect($host, $sqluser, $sqlpassword, $dbusername);
 
 	//logs into the account, checks the query if the club_name and club_password match
     $query = "SELECT * FROM admin_login WHERE club_name='$club_name' AND club_password='$club_password'";

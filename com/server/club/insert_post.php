@@ -1,8 +1,5 @@
 <?php
-  
-
-  if(isset($_POST['create']))
-  {
+include("dbconnection.php");
       
       $connection= mysqli_connect('clubfair.000webhostapp.com', 'root', '', 'id2004787_clubfair');      
       
@@ -15,7 +12,5 @@
       $query .= "VALUES({$post_title},now(),'{$post_content}') ";
            
       $create_post_query = mysqli_query($connection, $query);
-      
-  }
    
 ?>
