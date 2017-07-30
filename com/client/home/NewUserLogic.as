@@ -21,7 +21,7 @@
 				} else {
 					ClubFair.display.firstNamePlaceHolder.visible = true;
 				}
-				if(ClubFair.display.firstNameTxT.text != "") {
+				if(ClubFair.display.lastNameTxT.text != "") {
 					ClubFair.display.lastNamePlaceHolder.visible = false;
 				} else {
 					ClubFair.display.lastNamePlaceHolder.visible = true;
