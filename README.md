@@ -1,3 +1,4 @@
+![Alt text](/rsrc/icon72x72.png)
 # About
 ClubFair is a mobile application created by
 - Pravat Bhusal
