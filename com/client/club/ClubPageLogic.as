@@ -22,6 +22,9 @@
 				ClubFair.display.addEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
 				ClubFair.display.backBTN.addEventListener(MouseEvent.CLICK, backBTNHome);
 				ClubFair.display.updateBTN.addEventListener(MouseEvent.CLICK, updateClub);
+				ClubFair.display.openPostBTN.addEventListener(MouseEvent.CLICK, openPostPopUP);
+				ClubFair.display.Post.postField.closePostBTN.addEventListener(MouseEvent.CLICK, closePostPopUP);
+				ClubFair.display.Post.postField.addPostBTN.addEventListener(MouseEvent.CLICK, addPost);
 			}
 		}
 		function loadClubInfo() {
@@ -29,6 +32,10 @@
 			ClubFair.display.clubPasswordTxT.text = clubPassword;
 			ClubFair.display.clubNameInstance.clubNameTxT.text = clubName;
 			ClubFair.display.clubBioTxT.text = clubBio;
+			
+			ClubFair.display.Post.postField.postTitleTxT.text = "";
+			ClubFair.display.Post.postField.postContentTxT.text = "";
+			
 		}
 		function updatePlaceHolderText(E:Event): void {
 				//whenever the text is not blank in the text boxes, then don't show the placeholder text
@@ -47,11 +54,25 @@
 				} else {
 					ClubFair.display.clubDescPlaceHolder.visible = true;
 				}
+				if(ClubFair.display.Post.postField.postTitleTxT.text != "") {
+					ClubFair.display.Post.postField.postTitlePlaceHolder.visible = false;
+				} else {
+					ClubFair.display.Post.postField.postTitlePlaceHolder.visible = true;
+				}
+				if(ClubFair.display.Post.postField.postContentTxT.text != "") {
+					ClubFair.display.Post.postField.postContentPlaceHolder.visible = false;
+				} else {
+					ClubFair.display.Post.postField.postContentPlaceHolder.visible = true;
+				}
 		}
 		function backBTNHome(E:MouseEvent): void {
 			//go back to the home page and load the homepage code
 			ClubFair.display.removeEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
+			ClubFair.display.updateBTN.removeEventListener(MouseEvent.CLICK, updateClub);
+			ClubFair.display.openPostBTN.removeEventListener(MouseEvent.CLICK, openPostPopUP);
+			ClubFair.display.Post.postField.closePostBTN.removeEventListener(MouseEvent.CLICK, closePostPopUP);
+			ClubFair.display.Post.postField.addPostBTN.removeEventListener(MouseEvent.CLICK, addPost);
 			ClubFair.display.gotoAndStop(3);
 			new HomePageLogic();
 		}
@@ -66,6 +87,34 @@
 	
 				//send the variables to php
 				var urlRequest:URLRequest = new URLRequest("http://clubfair.000webhostapp.com/update_club.php");
+				urlRequest.method = URLRequestMethod.POST;
+				urlRequest.data = phpVars;
+				var urlLoader:URLLoader = new URLLoader();
+				urlLoader.dataFormat = URLLoaderDataFormat.VARIABLES;
+				urlLoader.load(urlRequest);
+				urlLoader.addEventListener(Event.COMPLETE, loadResults); //load the result from the php file
+			} else {
+				trace("[ClubFair] Failed to fill out all fields!");
+				ClubFair.display.Warning.warningField.textInfo.text = "Please fill out all fields!";
+				ClubFair.display.Warning.gotoAndPlay(2);
+			}
+		}
+		function openPostPopUP(E:MouseEvent): void {
+			ClubFair.display.Post.gotoAndPlay(2);
+		}
+		function closePostPopUP(E:MouseEvent): void {
+			ClubFair.display.Post.gotoAndPlay(ClubFair.display.Post.currentFrame + 1);
+		}
+		function addPost(E:MouseEvent): void {
+				if(ClubFair.display.Post.postField.postTitleTxT.text != "" && ClubFair.display.Post.postField.postContentTxT.text != "") {
+				//POST variables
+				var phpVars:URLVariables = new URLVariables();
+				phpVars.club_name = clubName;
+				phpVars.post_title = ClubFair.display.Post.postField.postTitleTxT.text;
+				phpVars.post_content = ClubFair.display.Post.postField.postContentTxT.text;
+	
+				//send the variables to php
+				var urlRequest:URLRequest = new URLRequest("http://clubfair.000webhostapp.com/add_post.php");
 				urlRequest.method = URLRequestMethod.POST;
 				urlRequest.data = phpVars;
 				var urlLoader:URLLoader = new URLLoader();
@@ -96,6 +145,17 @@
 					ClubFair.clubPassword = ClubFair.display.clubPasswordTxT.text;
 					new SaveData();
 				}
+			}
+			//if the result message contains "successfully updated", then show the user the post in the club page!
+			if(resultMessage.indexOf("Successfully added post") == 0) {
+				ClubFair.display.removeEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
+				ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
+				ClubFair.display.updateBTN.removeEventListener(MouseEvent.CLICK, updateClub);
+				ClubFair.display.openPostBTN.removeEventListener(MouseEvent.CLICK, openPostPopUP);
+				ClubFair.display.Post.postField.closePostBTN.removeEventListener(MouseEvent.CLICK, closePostPopUP);
+				ClubFair.display.Post.postField.addPostBTN.removeEventListener(MouseEvent.CLICK, addPost);
+				ClubFair.display.gotoAndStop(3);
+				new HomePageLogic();
 			}
 		}
    }
