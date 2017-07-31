@@ -103,9 +103,8 @@
 			ClubFair.display.Warning.warningField.textInfo.text = resultMessage;
 			ClubFair.display.Warning.gotoAndPlay(2);
 			
-			//if the result message says "successfully logged in", then login the user!
+			//if the result message contains "successfully logged in", then login the user!
 			if(resultMessage.indexOf("Successfully logged in") == 0) {
-				
 				//if we chose to remember the details, then let's remember the login details for next time!
 				if(ClubFair.rememberDetails) {
 					trace("[ClubFair] Saving details for next login session.");
@@ -119,6 +118,7 @@
 				ClubFair.display.loginBTN.removeEventListener(MouseEvent.CLICK, loginClub);
 				ClubPageLogic.clubName = ClubFair.display.clubNameTxT.text; //set the clubname in the logic class
 				ClubPageLogic.clubPassword = ClubFair.display.clubPasswordTxT.text; //set the clubpassword in the logic class
+				ClubPageLogic.clubBio = String(E.target.data.club_bio); //set the clubbio in the logic class
 				ClubFair.display.gotoAndStop(6);
 				new ClubPageLogic();
 			}
