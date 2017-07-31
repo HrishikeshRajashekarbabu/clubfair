@@ -6,8 +6,8 @@ include("dbconnection.php");
 	$post_title = $_POST['post_title'];
 	$post_content = $_POST['post_content'];
 	
-	$date = getdate(date("U"));
-	$post_date = "$date[weekday], $date[month] $date[mday], $date[year]";
+	date_default_timezone_set('America/Chicago');
+	$post_date = date("D, F j, Y - g:i a", time()); 
       
 	//this query inserts the values into the post_info table
 	$query = "INSERT INTO post_info (club_name, post_title, post_date, post_content) VALUES('$club_name', '$post_title', '$post_date', '$post_content')";
