@@ -105,7 +105,6 @@
 			
 			//if the result message contains "successfully logged in", then login the user!
 			if(resultMessage.indexOf("Successfully logged in") == 0) {
-				ClubFair.display.Warning.gotoAndStop(1); 
 				//if we chose to remember the details, then let's remember the login details for next time!
 				if(ClubFair.rememberDetails) {
 					trace("[ClubFair] Saving details for next login session.");
