@@ -6,7 +6,7 @@ include("dbconnection.php");
 	$club_password = $_POST["club_password"];
 
 	//logs into the account, checks the query if the club_name and club_password match
-	$query = "SELECT * FROM admin_login WHERE club_name='$club_name' AND club_password='$club_password'";
+	$query = "SELECT * FROM club_info WHERE club_name='$club_name' AND club_password='$club_password'";
 	$result = mysqli_query($link, $query);
 	if(mysqli_num_rows($result) > 0) {
 		$row = mysqli_fetch_array($result); //fetch the array result of the row
