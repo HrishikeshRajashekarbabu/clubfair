@@ -21,9 +21,23 @@
 				this.clubName = clubName;
 				this.allowEditPost = allowEditPost;
 				ClubFair.display.clubNameInstance.clubNameTxT.text = clubName;
+				ClubFair.display.addEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
 				ClubFair.display.backBTN.addEventListener(MouseEvent.CLICK, backClubsView);
 				loadPosts();
 			}
+		}
+		function updatePlaceHolderText(E:Event): void {
+				//whenever the text is not blank in the text boxes, then don't show the placeholder text
+				if(ClubFair.display.EditPost.postField.editPostTitleTxT.text != "") {
+					ClubFair.display.EditPost.postField.postTitlePlaceHolder.visible = false;
+				} else {
+					ClubFair.display.EditPost.postField.postTitlePlaceHolder.visible = true;
+				}
+				if(ClubFair.display.EditPost.postField.editPostContentTxT.text != "") {
+					ClubFair.display.EditPost.postField.postContentPlaceHolder.visible = false;
+				} else {
+					ClubFair.display.EditPost.postField.postContentPlaceHolder.visible = true;
+				}
 		}
 		function loadPosts() {
 				//POST variables
@@ -96,6 +110,7 @@
 		}
 		function backClubsView(E:MouseEvent): void {
 			//go back to the home page and load the homepage code
+			ClubFair.display.removeEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backClubsView);
 			ClubFair.display.EditPost.postField.closeEditPostBTN.removeEventListener(MouseEvent.CLICK, closeEditPostPopUP);
 			ClubFair.display.EditPost.postField.editPostBTN.removeEventListener(MouseEvent.CLICK, editPost);

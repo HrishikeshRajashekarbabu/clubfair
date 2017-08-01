@@ -44,6 +44,10 @@
 				{ //else, the player has correctly put in their register details and the info. will now be saved!
 					ClubFair.firstName = ClubFair.display.firstNameTxT.text;
 					ClubFair.lastName = ClubFair.display.lastNameTxT.text;
+					ClubFair.rememberDetails = false;
+					ClubFair.clubName = "";
+					ClubFair.clubPassword = "";
+					ClubFair.subscribedClubs = [];
 					ClubFair.display.removeEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
 					ClubFair.display.submitBTN.removeEventListener(MouseEvent.CLICK, registerUserInformation);
 					new SaveData();
