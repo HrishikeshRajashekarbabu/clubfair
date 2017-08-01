@@ -47,8 +47,8 @@
 			ClubFair.display.viewFeedBTN.removeEventListener(MouseEvent.CLICK, viewFeed);
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
 			ClubFair.display.gotoAndStop(8);
-			new ClubSelectLogic(clubTitle, clubBio);
-			trace("[ClubFair] Now viewing " + clubTitle);
+			new ClubSelectLogic(clubTitle);
+			trace("[ClubFair] Now viewing " + clubTitle + ".");
 		}
 		function subscribe(E:TouchEvent): void {
 			var clubContent:MovieClip = E.target.parent;
@@ -70,7 +70,6 @@
 			var resultData:Object = JSON.parse(E.target.data);
 			//add new childs of the club content panes
 			for (var i:Number=0; i < resultData.club_info.length; i++){
-				resultData.club_info[i].club_name
 				contentPanes.push(new clubViewBox());
 				contentPanes[i].x = 205.85;
 				//if this is not the first contentPane, then increment the y by 220 from the previous contentpane
@@ -87,12 +86,12 @@
 					ClubFair.subscribedClubs = [];
 					new SaveData();
 				} else {
-				for (var i2:Number=0; i2 < ClubFair.subscribedClubs.length; i2++){
-					//if we find the name of the club, then count it as subscribed!
-					if(ClubFair.subscribedClubs[i2] == contentPanes[i].clubTitleTxT.text) {
-						contentPanes[i].subscribeBTN.gotoAndStop(2);
+					for (var i2:Number=0; i2 < ClubFair.subscribedClubs.length; i2++){
+						//if we find the name of the club, then count it as subscribed!
+						if(ClubFair.subscribedClubs[i2] == contentPanes[i].clubTitleTxT.text) {
+							contentPanes[i].subscribeBTN.gotoAndStop(2);
+						}
 					}
-				}
 				}
 				
 				//touch event gestures are good to use when scrolling and hovering over buttons

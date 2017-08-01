@@ -132,6 +132,7 @@
 			}
 		}
 		function loadResults(E:Event) {
+			
 			var resultMessage = "" + E.target.data.result_message;
 			trace("[ClubFair] " + resultMessage);
 			ClubFair.display.Warning.warningField.textInfo.text = resultMessage;
@@ -159,7 +160,7 @@
 				ClubFair.display.Post.postField.closePostBTN.removeEventListener(MouseEvent.CLICK, closePostPopUP);
 				ClubFair.display.Post.postField.addPostBTN.removeEventListener(MouseEvent.CLICK, addPost);
 				ClubFair.display.gotoAndStop(8);
-				new ClubSelectLogic(clubName, clubBio);
+				new ClubSelectLogic(clubName);
 			}
 		}
    }
