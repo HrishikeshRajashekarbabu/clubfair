@@ -19,6 +19,7 @@
 				ClubFair.rememberDetails = ClubFair.ClubFairData.data.rememberDetails;
 				ClubFair.clubName = ClubFair.ClubFairData.data.clubName;
 				ClubFair.clubPassword = ClubFair.ClubFairData.data.clubPassword;
+				ClubFair.subscribedClubs = ClubFair.ClubFairData.data.subscribedClubs;
 				ClubFair.display.gotoAndStop(3);
 				new HomePageLogic();
 				trace("[ClubFair] Logging in as " + ClubFair.firstName + " " + ClubFair.lastName + "!");

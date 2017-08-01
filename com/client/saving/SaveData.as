@@ -10,6 +10,7 @@
 			ClubFair.ClubFairData.data.rememberDetails = ClubFair.rememberDetails;
 			ClubFair.ClubFairData.data.clubName = ClubFair.clubName;
 			ClubFair.ClubFairData.data.clubPassword = ClubFair.clubPassword;
+			ClubFair.ClubFairData.data.subscribedClubs = ClubFair.subscribedClubs;
 			ClubFair.ClubFairData.flush();
 		}
 	}

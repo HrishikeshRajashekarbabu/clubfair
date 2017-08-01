@@ -16,6 +16,7 @@
 		public static var rememberDetails:Boolean = false;
 		public static var clubName:String = "";
 		public static var clubPassword:String = "";
+		public static var subscribedClubs:Array = [];
 		public static var ClubFairData:SharedObject = SharedObject.getLocal("ClubFair");
 
 		/* use getters instead of public static vars so they

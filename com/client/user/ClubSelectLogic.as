@@ -30,8 +30,8 @@
 		function backBTNHome(E:MouseEvent): void {
 			//go back to the home page and load the homepage code
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
-			ClubFair.display.gotoAndStop(3);
-			new HomePageLogic();
+			ClubFair.display.gotoAndStop(7);
+			new ClubsViewLogic();
 		}
    }
 }
