@@ -7,17 +7,21 @@
 	import flash.events.*;
 	import flash.net.*;
 	import com.client.saving.SaveData;
+	import com.client.user.ClubSelectLogic;
 	
 	public class ClubPageLogic
 	{
-		public static var clubName:String = "";
-		public static var clubPassword:String = "";
-		public static var clubBio:String = "";
+		private var clubName:String = "";
+		private var clubPassword:String = "";
+		private var clubBio:String = "";
 		
-		public function ClubPageLogic()
+		public function ClubPageLogic(clubName, clubPassword, clubBio)
 		{
 			//if we're in the 6th frame (club page)
 			if(ClubFair.display.currentFrame == 6) {
+				this.clubName = clubName;
+				this.clubPassword = clubPassword;
+				this.clubBio = clubBio;
 				loadClubInfo();
 				ClubFair.display.addEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
 				ClubFair.display.backBTN.addEventListener(MouseEvent.CLICK, backBTNHome);
@@ -154,8 +158,8 @@
 				ClubFair.display.openPostBTN.removeEventListener(MouseEvent.CLICK, openPostPopUP);
 				ClubFair.display.Post.postField.closePostBTN.removeEventListener(MouseEvent.CLICK, closePostPopUP);
 				ClubFair.display.Post.postField.addPostBTN.removeEventListener(MouseEvent.CLICK, addPost);
-				ClubFair.display.gotoAndStop(3);
-				new HomePageLogic();
+				ClubFair.display.gotoAndStop(8);
+				new ClubSelectLogic(clubName);
 			}
 		}
    }

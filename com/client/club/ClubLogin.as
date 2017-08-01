@@ -117,11 +117,11 @@
 				ClubFair.display.removeEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
 				ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
 				ClubFair.display.loginBTN.removeEventListener(MouseEvent.CLICK, loginClub);
-				ClubPageLogic.clubName = ClubFair.display.clubNameTxT.text; //set the clubname in the logic class
-				ClubPageLogic.clubPassword = ClubFair.display.clubPasswordTxT.text; //set the clubpassword in the logic class
-				ClubPageLogic.clubBio = String(E.target.data.club_bio); //set the clubbio in the logic class
+				var clubName:String = ClubFair.display.clubNameTxT.text;
+				var clubPassword:String =  ClubFair.display.clubPasswordTxT.text;
+				var clubBio:String = String(E.target.data.club_bio);
 				ClubFair.display.gotoAndStop(6);
-				new ClubPageLogic();
+				new ClubPageLogic(clubName, clubPassword, clubBio);
 			}
 		}
    }

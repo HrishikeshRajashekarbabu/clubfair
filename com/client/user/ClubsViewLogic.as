@@ -13,8 +13,12 @@
 		{
 			//if we're in the 7th frame (clubs view page)
 			if(ClubFair.display.currentFrame == 7) {
+				loadClubs();
 				ClubFair.display.backBTN.addEventListener(MouseEvent.CLICK, backBTNHome);
 			}
+		}
+		function loadClubs() {
+			
 		}
 		function backBTNHome(E:MouseEvent): void {
 			//go back to the home page and load the homepage code
