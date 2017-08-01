@@ -13,6 +13,7 @@
 		{
 			//if we're in the 7th frame (clubs view page)
 			if(ClubFair.display.currentFrame == 7) {
+				ClubFair.display.chooseClub.visible = false;
 				loadClubs();
 				ClubFair.display.viewFeedBTN.addEventListener(MouseEvent.CLICK, viewFeed);
 				ClubFair.display.backBTN.addEventListener(MouseEvent.CLICK, backBTNHome);
