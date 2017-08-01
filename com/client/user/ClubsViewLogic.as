@@ -47,7 +47,7 @@
 			ClubFair.display.viewFeedBTN.removeEventListener(MouseEvent.CLICK, viewFeed);
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
 			ClubFair.display.gotoAndStop(8);
-			new ClubSelectLogic(clubTitle);
+			new ClubSelectLogic(clubTitle, false);
 			trace("[ClubFair] Now viewing " + clubTitle + ".");
 		}
 		function subscribe(E:TouchEvent): void {

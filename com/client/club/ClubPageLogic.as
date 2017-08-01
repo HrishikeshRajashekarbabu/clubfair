@@ -27,6 +27,7 @@
 				ClubFair.display.backBTN.addEventListener(MouseEvent.CLICK, backBTNHome);
 				ClubFair.display.updateBTN.addEventListener(MouseEvent.CLICK, updateClub);
 				ClubFair.display.openPostBTN.addEventListener(MouseEvent.CLICK, openPostPopUP);
+				ClubFair.display.editPostsBTN.addEventListener(MouseEvent.CLICK, gotoEditPostPage);
 				ClubFair.display.Post.postField.closePostBTN.addEventListener(MouseEvent.CLICK, closePostPopUP);
 				ClubFair.display.Post.postField.addPostBTN.addEventListener(MouseEvent.CLICK, addPost);
 			}
@@ -75,6 +76,7 @@
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
 			ClubFair.display.updateBTN.removeEventListener(MouseEvent.CLICK, updateClub);
 			ClubFair.display.openPostBTN.removeEventListener(MouseEvent.CLICK, openPostPopUP);
+			ClubFair.display.editPostsBTN.removeEventListener(MouseEvent.CLICK, gotoEditPostPage);
 			ClubFair.display.Post.postField.closePostBTN.removeEventListener(MouseEvent.CLICK, closePostPopUP);
 			ClubFair.display.Post.postField.addPostBTN.removeEventListener(MouseEvent.CLICK, addPost);
 			ClubFair.display.gotoAndStop(3);
@@ -108,6 +110,17 @@
 		}
 		function closePostPopUP(E:MouseEvent): void {
 			ClubFair.display.Post.gotoAndPlay(ClubFair.display.Post.currentFrame + 1);
+		}
+		function gotoEditPostPage(E:MouseEvent): void {
+			ClubFair.display.removeEventListener(Event.ENTER_FRAME, updatePlaceHolderText);
+			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
+			ClubFair.display.updateBTN.removeEventListener(MouseEvent.CLICK, updateClub);
+			ClubFair.display.openPostBTN.removeEventListener(MouseEvent.CLICK, openPostPopUP);
+			ClubFair.display.editPostsBTN.removeEventListener(MouseEvent.CLICK, gotoEditPostPage);
+			ClubFair.display.Post.postField.closePostBTN.removeEventListener(MouseEvent.CLICK, closePostPopUP);
+			ClubFair.display.Post.postField.addPostBTN.removeEventListener(MouseEvent.CLICK, addPost);
+			ClubFair.display.gotoAndStop(8);
+			new ClubSelectLogic(clubName, true);
 		}
 		function addPost(E:MouseEvent): void {
 				if(ClubFair.display.Post.postField.postTitleTxT.text != "" && ClubFair.display.Post.postField.postContentTxT.text != "") {
@@ -157,10 +170,11 @@
 				ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
 				ClubFair.display.updateBTN.removeEventListener(MouseEvent.CLICK, updateClub);
 				ClubFair.display.openPostBTN.removeEventListener(MouseEvent.CLICK, openPostPopUP);
+				ClubFair.display.editPostsBTN.removeEventListener(MouseEvent.CLICK, gotoEditPostPage);
 				ClubFair.display.Post.postField.closePostBTN.removeEventListener(MouseEvent.CLICK, closePostPopUP);
 				ClubFair.display.Post.postField.addPostBTN.removeEventListener(MouseEvent.CLICK, addPost);
 				ClubFair.display.gotoAndStop(8);
-				new ClubSelectLogic(clubName);
+				new ClubSelectLogic(clubName, true);
 			}
 		}
    }
