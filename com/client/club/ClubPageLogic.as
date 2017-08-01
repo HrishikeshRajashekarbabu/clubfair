@@ -159,7 +159,7 @@
 				ClubFair.display.Post.postField.closePostBTN.removeEventListener(MouseEvent.CLICK, closePostPopUP);
 				ClubFair.display.Post.postField.addPostBTN.removeEventListener(MouseEvent.CLICK, addPost);
 				ClubFair.display.gotoAndStop(8);
-				new ClubSelectLogic(clubName);
+				new ClubSelectLogic(clubName, clubBio);
 			}
 		}
    }

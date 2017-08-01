@@ -10,12 +10,14 @@
 	public class ClubSelectLogic
 	{
 		private var clubName:String = "";
+		private var clubBio:String = "";
 		
-		public function ClubSelectLogic(clubName)
+		public function ClubSelectLogic(clubName, clubBio)
 		{
 			//if we're in the 8th frame (clubs select page)
 			if(ClubFair.display.currentFrame == 8) {
 				this.clubName = clubName;
+				this.clubBio = clubBio;
 				loadClubInfo();
 				loadPosts();
 				ClubFair.display.backBTN.addEventListener(MouseEvent.CLICK, backBTNHome);
@@ -23,6 +25,7 @@
 		}
 		function loadClubInfo() {
 			ClubFair.display.clubNameInstance.clubNameTxT.text = clubName;
+			ClubFair.display.clubBioTxT.text = clubBio;
 		}
 		function loadPosts() {
 			

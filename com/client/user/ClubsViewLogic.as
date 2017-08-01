@@ -43,10 +43,11 @@
 		}
 		function clickedClub(E:TouchEvent): void {
 			var clubTitle:String = E.target.parent.clubTitleTxT.text;
+			var clubBio:String = E.target.parent.clubBioTxT.text;
 			ClubFair.display.viewFeedBTN.removeEventListener(MouseEvent.CLICK, viewFeed);
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
 			ClubFair.display.gotoAndStop(8);
-			new ClubSelectLogic(clubTitle);
+			new ClubSelectLogic(clubTitle, clubBio);
 			trace("[ClubFair] Now viewing " + clubTitle);
 		}
 		function subscribe(E:TouchEvent): void {
