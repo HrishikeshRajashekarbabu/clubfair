@@ -1,20 +1,41 @@
 <?php
 include("dbconnection.php");
 
-	//variables to receive from flash
-	$club_name = $_POST["club_name"];
-	$club_password = $_POST["club_password"];
+	date_default_timezone_set('America/Chicago');
 
-	//logs into the account, checks the query if the club_name and club_password match
-	$query = "SELECT * FROM club_info WHERE club_name='$club_name' AND club_password='$club_password'";
-	$result = mysqli_query($link, $query);
-	if(mysqli_num_rows($result) > 0) {
-		$row = mysqli_fetch_array($result); //fetch the array result of the row
-		print("club_bio=" . $row["club_bio"]);
-		print("&");
-		exit("result_message=Successfully logged in to $club_name" . "!");
+	//load flash var for club_name
+    $close_time = $_POST["close_time"]; //in flash: (new Date()).time
+    $open_time = $_POST["open_time"];  //in flash: (new Date()).time
+	$club_names = $_POST["club_names"];
+	$club_id = 0;
+	$json_data = array();
+
+	//gets length of $club_names array
+    $count = count($club_names);
+
+    //goes through the club_names and gets the club_id and posts
+    for($i=0; $i<$count; $i++)
+    {
+        $query = "SELECT * FROM club_info WHERE club_name='$club_names[$i]'";
+        $result = mysqli_query($link, $query);
+        if(mysqli_num_rows($result) > 0) 
+        {
+            $row = mysqli_fetch_array($result); //fetch the array result of the row
+            $club_id = $row["club_id"]; //get the club_id of the row
+        }
+        
+        //gets all posts with the $club_id and between the close and open time
+        $query = "SELECT * FROM post_info WHERE club_id='$club_id' AND sec_post_date<='$open_time' AND sec_post_date>='$close_time'";
+        $result = mysqli_query($link, $query);
+        //push a new index for each row from post_info for the specific club_id
+        while($row = mysqli_fetch_object($result)) 
+        {
+            $json_data[] = $row;
+        }
     }
 	
-	//if all else fails, then tell the user
-    exit("result_message=Invalid club name or password!");
+	//we need to reverse the json array in order to get the posts that were recently created as first
+	$reversed_json_data = array_reverse($json_data);
+	
+	print('{"post_info":'.json_encode($reversed_json_data).'}');
 ?>
