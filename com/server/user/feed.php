@@ -6,10 +6,10 @@ include("dbconnection.php");
 	//load flash var for club_name
     $close_time = $_POST["close_time"]; //in flash: (new Date()).time
     $open_time = $_POST["open_time"];  //in flash: (new Date()).time
-	$club_names = $_POST["club_names"];
+	$club_names = explode("," , $_POST["club_names"]);
 	$club_id = 0;
 	$json_data = array();
-
+	
 	//gets length of $club_names array
     $count = count($club_names);
 

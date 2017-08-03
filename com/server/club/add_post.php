@@ -22,7 +22,7 @@ include("dbconnection.php");
     $sec_post_date = round(microtime(true) * 1000);
       
 	//this query inserts the values into the post_info table
-	$query = "INSERT INTO post_info (club_id, post_title, post_date, post_content, sec_post_date) VALUES('$club_id', '$post_title', '$post_date', '$post_content', '$sec_post_date')";
+	$query = "INSERT INTO post_info (club_id, club_name, post_title, post_date, post_content, sec_post_date) VALUES('$club_id', '$club_name', '$post_title', '$post_date', '$post_content', '$sec_post_date')";
 	mysqli_query($link, $query) or exit("result_message=Error sending the information!");
 	
 	//if all else is successful, then tell the user

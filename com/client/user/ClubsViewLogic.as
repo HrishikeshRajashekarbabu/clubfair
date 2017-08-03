@@ -19,23 +19,44 @@
 			//if we're in the 7th frame (clubs view page)
 			if(ClubFair.display.currentFrame == 7) {
 				loadClubs();
-				ClubFair.display.viewFeedBTN.addEventListener(MouseEvent.CLICK, viewFeed);
+				ClubFair.display.closeFeedBTN.visible = false;
+				ClubFair.display.viewFeedBTN.gotoAndStop(2);
+				ClubFair.display.viewFeedBTN.addEventListener(MouseEvent.CLICK, loadFeed);
+				ClubFair.display.closeFeedBTN.addEventListener(MouseEvent.CLICK, closeFeed);
 				ClubFair.display.backBTN.addEventListener(MouseEvent.CLICK, backBTNHome);
 			}
 		}
-		function loadClubs() {
+		function loadFeed(E:MouseEvent) {
+				ClubFair.display.viewFeedBTN.gotoAndStop(1);
+				//POST variables
+				var phpVars:URLVariables = new URLVariables();
+				phpVars.close_time = ClubFair.closedTime;
+				phpVars.open_time = new Date().time;
+				phpVars.club_names = ClubFair.subscribedClubs.toString();
+	
+				//send the variables to php
+				var urlRequest:URLRequest = new URLRequest("http://clubfair.000webhostapp.com/feed.php");
+				urlRequest.method = URLRequestMethod.POST;
+				urlRequest.data = phpVars;
+				var urlLoader:URLLoader = new URLLoader();
+				urlLoader.load(urlRequest);
+				urlLoader.addEventListener(Event.COMPLETE, loadFeedResults); //load the result from the php file
+		}
+		function closeFeed(E:MouseEvent): void {
+			ClubFair.display.closeFeedBTN.visible = false;
+			ClubFair.display.viewFeedBTN.visible = true;
+			ClubFair.display.clubsTxT.viewClubTxT.text = "Clubs";
+			loadClubs();
+		}
+		public function loadClubs() {
 				//load the load_clubs.php file
 				var urlRequest:URLRequest = new URLRequest("http://clubfair.000webhostapp.com/load_clubs.php");
 				var urlLoader:URLLoader = new URLLoader();
 				urlLoader.load(urlRequest);
 				urlLoader.addEventListener(Event.COMPLETE, loadClubResults); //load the result from the php file
 		}
-		function viewFeed(E:MouseEvent): void {
-			
-		}
 		function backBTNHome(E:MouseEvent): void {
 			//go back to the home page and load the homepage code
-			ClubFair.display.viewFeedBTN.removeEventListener(MouseEvent.CLICK, viewFeed);
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
 			ClubFair.display.gotoAndStop(3);
 			new HomePageLogic();
@@ -43,7 +64,6 @@
 		function clickedClub(E:TouchEvent): void {
 			var clubTitle:String = E.target.parent.clubTitleTxT.text;
 			var clubBio:String = E.target.parent.clubBioTxT.text;
-			ClubFair.display.viewFeedBTN.removeEventListener(MouseEvent.CLICK, viewFeed);
 			ClubFair.display.backBTN.removeEventListener(MouseEvent.CLICK, backBTNHome);
 			ClubFair.display.gotoAndStop(8);
 			new ClubSelectLogic(clubTitle, false);
@@ -66,6 +86,15 @@
 			new SaveData();
 		}
 		function loadClubResults(E:Event): void {
+			//remove all children and set the contentpanes to blank
+			contentPanes = new Array();
+			for (var child:int = ClubFair.display.scrollContent.contentPane.numChildren - 1; child > -1; child--)
+			{
+				if(ClubFair.display.scrollContent.contentPane.getChildAt(child) is MovieClip)
+				{
+					ClubFair.display.scrollContent.contentPane.removeChildAt(child);
+				}
+			}
 			var resultData:Object = JSON.parse(E.target.data);
 			//add new childs of the club content panes
 			for (var i:Number=0; i < resultData.club_info.length; i++){
@@ -97,6 +126,45 @@
 				Multitouch.inputMode = MultitouchInputMode.TOUCH_POINT;
 				contentPanes[i].clickClubBTN.addEventListener(TouchEvent.TOUCH_TAP, clickedClub);
 				contentPanes[i].subscribeBTN.addEventListener(TouchEvent.TOUCH_TAP, subscribe);
+				
+				ClubFair.display.scrollContent.contentPane.addChild(contentPanes[i]);
+			}
+		}
+		function loadFeedResults(E:Event): void {
+			//remove all children and set the contentpanes to blank
+			contentPanes = new Array();
+			for (var child:int = ClubFair.display.scrollContent.contentPane.numChildren - 1; child > -1; child--)
+			{
+				if(ClubFair.display.scrollContent.contentPane.getChildAt(child) is MovieClip)
+				{
+					ClubFair.display.scrollContent.contentPane.removeChildAt(child);
+				}
+			}
+			ClubFair.display.closeFeedBTN.visible = true;
+			ClubFair.display.viewFeedBTN.visible = false;
+			ClubFair.display.clubsTxT.viewClubTxT.text = "Recent Feed";
+			var resultData:Object = JSON.parse(E.target.data);
+			//add new childs of the post content panes
+			for (var i:Number=0; i < resultData.post_info.length; i++){
+				contentPanes.push(new clubPostBox());
+				contentPanes[i].x = 205.85;
+				//if this is not the first contentPane, then increment the y by 250 from the previous contentpane
+				if(i != 0) {
+				contentPanes[i].y = contentPanes[i-1].y + 250;
+				} else {
+					contentPanes[i].y = 100;
+				}
+				
+				//we're not allowed to edit the feed
+				contentPanes[i].editPostBTN.visible = false;
+				contentPanes[i].deletePostBTN.visible = false;
+				
+				//exclamation mark, stating that there is new feed to be looked into
+				ClubFair.display.viewFeedBTN.gotoAndStop(2);
+				
+				contentPanes[i].postTitleTxT.text = String(resultData.post_info[i].club_name) + ": " + String(resultData.post_info[i].post_title);
+				contentPanes[i].postDateTxT.text = String(resultData.post_info[i].post_date);
+				contentPanes[i].postContentTxT.text = String(resultData.post_info[i].post_content)
 				
 				ClubFair.display.scrollContent.contentPane.addChild(contentPanes[i]);
 			}
