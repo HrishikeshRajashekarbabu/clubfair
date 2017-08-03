@@ -163,10 +163,12 @@
 			}
 			
 			//reset the page's information
+			ClubFair.closedTime = new Date().time;
 			ClubFair.display.closeFeedBTN.visible = true;
 			ClubFair.display.viewFeedBTN.visible = false;
 			ClubFair.display.clubsTxT.viewClubTxT.text = "Recent Feed";
 			ClubFair.display.viewFeedBTN.notificationNumber.text = "0"
+			new SaveData();
 			
 			var resultData:Object = JSON.parse(E.target.data);
 			//add new childs of the post content panes
