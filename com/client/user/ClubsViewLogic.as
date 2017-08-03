@@ -57,8 +57,6 @@
 				urlLoader.addEventListener(Event.COMPLETE, loadFeedResults); //load the result from the php file
 		}
 		function closeFeed(E:MouseEvent): void {
-			ClubFair.display.closeFeedBTN.visible = false;
-			ClubFair.display.viewFeedBTN.visible = true;
 			loadClubs();
 		}
 		public function loadClubs() {
@@ -100,7 +98,6 @@
 		}
 		function loadClubResults(E:Event): void {
 			//remove all children and set the contentpanes to blank
-			ClubFair.display.clubsTxT.viewClubTxT.text = "Clubs";
 			contentPanes = new Array();
 			for (var child:int = ClubFair.display.scrollContent.contentPane.numChildren - 1; child > -1; child--)
 			{
@@ -109,6 +106,12 @@
 					ClubFair.display.scrollContent.contentPane.removeChildAt(child);
 				}
 			}
+			
+			//reset the page's information
+			ClubFair.display.clubsTxT.viewClubTxT.text = "Clubs";
+			ClubFair.display.closeFeedBTN.visible = false;
+			ClubFair.display.viewFeedBTN.visible = true;
+			
 			var resultData:Object = JSON.parse(E.target.data);
 			//add new childs of the club content panes
 			for (var i:Number=0; i < resultData.club_info.length; i++){
@@ -158,10 +161,13 @@
 					ClubFair.display.scrollContent.contentPane.removeChildAt(child);
 				}
 			}
+			
+			//reset the page's information
 			ClubFair.display.closeFeedBTN.visible = true;
 			ClubFair.display.viewFeedBTN.visible = false;
 			ClubFair.display.clubsTxT.viewClubTxT.text = "Recent Feed";
 			ClubFair.display.viewFeedBTN.notificationNumber.text = "0"
+			
 			var resultData:Object = JSON.parse(E.target.data);
 			//add new childs of the post content panes
 			for (var i:Number=0; i < resultData.post_info.length; i++){
