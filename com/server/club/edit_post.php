@@ -20,9 +20,10 @@ include("dbconnection.php");
 	
 	date_default_timezone_set('America/Chicago');
 	$post_date = "Edit: " . date("D, F j, Y - g:i a", time()); 
+	$sec_post_date = round(microtime(true) * 1000);
 
 	//this query updates the values into the post_info table
-	$query = "UPDATE post_info SET post_title='$post_title', post_content='$post_content', post_date='$post_date' WHERE club_id='$club_id' AND post_title='$original_post_title'";
+	$query = "UPDATE post_info SET post_title='$post_title', post_content='$post_content', post_date='$post_date', sec_post_date='$sec_post_date' WHERE club_id='$club_id' AND post_title='$original_post_title'";
 	mysqli_query($link, $query) or exit("result_message=Error sending the information!");
     
     //if all else is successful, then tell the user
